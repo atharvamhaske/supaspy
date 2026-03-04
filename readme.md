@@ -1,0 +1,1 @@
+playing with concurreny pattern called TEE pattern and supabase, atp even idk what the fuck this gonna be but yeah !
