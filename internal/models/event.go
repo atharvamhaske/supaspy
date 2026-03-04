@@ -11,3 +11,32 @@ const (
 	OpUpdate Operation = "UPDATE"
 	OpDelete Operation = "DELETE"
 )
+
+// QueryEvent represents a single DB query execution captured from the system.
+type QueryEvent struct {
+	ID        string
+	Query     string
+	Duration  int
+	Error     string
+	Timestamp time.Time
+	Table     string
+	Operation Operation
+}
+
+// Severity represents how crictical an alert is
+type Severity string
+
+const (
+	SeverityInfo     Severity = "INFO"
+	SeverityWarning  Severity = "WARNING"
+	SeverityCritical Severity = "CRITICAL"
+)
+
+// Alert represents and anomaly detetced by an analyzer
+type Alert struct {
+	Title     string
+	Message   string
+	Severity  Severity
+	Event     QueryEvent
+	Timestamp time.Time
+}
