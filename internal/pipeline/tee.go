@@ -1,0 +1,6 @@
+/*
+Package pipeline implements the Tee concurrency pattern for QueryEvent streams.
+It duplicates each event onto two independent output channels so downstream
+consumers can process the same input in parallel without interfering
+with each other.
+*/
