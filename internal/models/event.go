@@ -40,3 +40,5 @@ type Alert struct {
 	Event     QueryEvent
 	Timestamp time.Time
 }
+
+// this is to be done from tomorrow so for reminder i am commenting this pls bear lol
