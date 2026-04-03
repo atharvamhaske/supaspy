@@ -46,7 +46,7 @@ type discordEmbed struct {
 	Description string         `json:"description"`
 	Color       int            `json:"color"`
 	Fields      []discordField `json:"fields"`
-	Footer      string         `json:"footer"`
+	Footer      discordFooter  `json:"footer"`
 	Timestamp   time.Time      `json:"timestamp"`
 }
 
@@ -54,6 +54,9 @@ type discordField struct {
 	Name   string `json:"name"`
 	Value  string `json:"value"`
 	Inline bool   `json:"inline"`
+}
+type discordFooter struct {
+	Text string `json:"text"`
 }
 
 func NewWebhookSender(url string, platform Platform) *WebhookSender {
@@ -94,3 +97,24 @@ func (s *WebhookSender) buildPayload(alert *models.Alert) ([]byte, error) {
 		return nil, fmt.Errorf("unsupported platform: %s", s.platform)
 	}
 }
+func (s *webhookSender) slackPayload(alert *models.Alert) slackPayload {
+	return slackPayload{
+		Text: fmt.Sprintf(":rotating_light: Supaspy Alert %s", alert.Severity),
+		Attachments: []slackAttachment{{
+			Colour: slackColour(alert.Severity),
+			Title: alert.Title,
+			Text: alert.Message,
+			Fields: []slackField{
+				{
+				Title: "Query",
+				Value : alert.Event.ID,
+			    Short: true},
+				{
+				Title: "Duration",
+				}
+			},
+			Footer: "Supaspy Observability",
+			Ts: alert.Timestamp.Unix(),
+		}},
+		}
+	}
