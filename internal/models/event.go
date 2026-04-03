@@ -12,7 +12,7 @@ const (
 	OpDelete Operation = "DELETE"
 )
 
-// QueryEvent represents a single DB query execution captured from the system.
+// QueryEvent represents a single DB query execution captured from the system. we are treating every query as a query event with following fields
 type QueryEvent struct {
 	ID        string
 	Query     string
